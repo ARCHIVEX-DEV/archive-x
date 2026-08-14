@@ -1,168 +1,693 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARCHIVE X — Discord</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ARCHIVE X — Pour trouver n'importe quel dossier de n'importe qui.">
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:#020202;color:#fff;font-family:Inter,Arial,sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 30%,rgba(255,255,255,.035),transparent 35%);z-index:20}
-nav{position:fixed;top:0;left:0;right:0;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(0,0,0,.42);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.09);z-index:50}
-.logo{font-family:Orbitron,sans-serif;letter-spacing:5px;font-weight:700;font-size:15px;text-shadow:0 0 12px rgba(255,255,255,.18)}
-.nav-link{color:#aaa;text-decoration:none;font-size:12px;letter-spacing:2px;transition:.25s}.nav-link:hover{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.25)}
+  <!-- Google Search Console :
+       Remplace la valeur ci-dessous UNIQUEMENT par le code fourni par Google.
+       <meta name="google-site-verification" content="TON_CODE_GOOGLE"> -->
 
-.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;background-image:linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.25)),url("hero-archive-x.png");background-size:cover;background-position:center;background-repeat:no-repeat}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 72%,#020202 100%);pointer-events:none}
-.hero-content{position:relative;z-index:3;text-align:center;margin-top:60px;display:flex;flex-direction:column;align-items:center}
-.hero-kicker{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:5px;color:rgba(255,255,255,.72);margin-bottom:18px;text-shadow:0 0 12px #fff}
-.hero h1{font-family:Georgia,serif;font-size:clamp(58px,10vw,130px);font-weight:500;letter-spacing:18px;line-height:.95;text-shadow:0 0 12px rgba(255,255,255,.28),0 0 35px rgba(255,255,255,.08);margin-left:18px}
-.hero p{margin-top:20px;color:#d0d0d0;font-size:13px;letter-spacing:3px;text-transform:uppercase;text-shadow:0 0 10px rgba(255,255,255,.16)}
+  <title>ARCHIVE X</title>
 
-.gate{margin-top:38px;display:flex;gap:14px;position:relative;height:62px;align-items:center;justify-content:center;width:min(520px,92vw)}
-.btn{height:58px;width:220px;border:1px solid rgba(255,255,255,.38);background:rgba(0,0,0,.35);color:#fff;border-radius:5px;font-family:Orbitron,sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;cursor:pointer;box-shadow:0 0 8px rgba(255,255,255,.08),0 0 20px rgba(255,255,255,.025);transition:width 1s cubic-bezier(.77,0,.18,1),transform 1s cubic-bezier(.77,0,.18,1),opacity .45s,box-shadow .4s,background .3s}
-.btn:hover{box-shadow:0 0 13px rgba(255,255,255,.18),0 0 28px rgba(255,255,255,.06);background:rgba(255,255,255,.09)}
-.close-btn{color:#aaa}
-.join-btn{background:rgba(255,255,255,.93);color:#050505;border-color:#fff}.join-btn:hover{background:#fff;color:#000}
-.gate.confirm .close-btn{opacity:0;pointer-events:none;width:0;transform:scale(.65)}
-.gate.confirm .join-btn{position:absolute;left:50%;transform:translateX(-50%);width:min(455px,92vw);height:64px;box-shadow:0 0 14px rgba(255,255,255,.18),0 0 34px rgba(255,255,255,.07)}
-.question{height:0;opacity:0;overflow:hidden;transform:translateY(12px);font-family:Orbitron,sans-serif;letter-spacing:2px;font-size:clamp(16px,2.5vw,25px);text-shadow:0 0 9px rgba(255,255,255,.18);transition:.7s ease}
-.question.show{height:32px;opacity:1;transform:none;margin-bottom:22px}
-.fade{animation:fade .6s ease forwards}@keyframes fade{0%{opacity:0;transform:translateY(7px)}100%{opacity:1;transform:none}}
-.scroll{position:absolute;bottom:32px;z-index:4;color:#aaa;font-size:9px;letter-spacing:4px;animation:float 2.5s ease-in-out infinite}@keyframes float{50%{transform:translateY(5px);opacity:.55}}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;600;700;800&display=swap');
 
-main{background:#020202;position:relative}
-.section{width:min(1100px,90%);margin:auto;padding:110px 0}.top-welcome{padding-top:105px;padding-bottom:90px}
-.label{font-family:Orbitron,sans-serif;color:#666;letter-spacing:4px;font-size:10px;margin-bottom:15px}
-.title{font-family:Orbitron,sans-serif;font-size:clamp(28px,5vw,55px);line-height:1.05;margin-bottom:22px}
-.intro{max-width:700px;color:#777;line-height:1.9;font-size:14px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
-.card{padding:30px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border-radius:8px;min-height:190px;transition:.35s}
-.card:hover{transform:translateY(-7px);border-color:rgba(255,255,255,.22);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.num{font-family:Orbitron,sans-serif;color:#555;font-size:9px;letter-spacing:2px;margin-bottom:30px}
-.card h3{font-family:Orbitron,sans-serif;font-size:14px;margin-bottom:12px}
-.card p{color:#777;font-size:12px;line-height:1.75}
+    :root {
+      --bg: #020202;
+      --text: #fff;
+      --muted: #777;
+      --line: rgba(255,255,255,.09);
+    }
 
-.channels{border-top:1px solid rgba(255,255,255,.06)}
-.channel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:40px}
-.channel{padding:18px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);color:#aaa;font-size:12px;transition:.25s}
-.channel:hover{color:#fff;background:rgba(255,255,255,.055);transform:translateY(-3px)}
-.channel span{display:block;color:#444;font-family:Orbitron,sans-serif;font-size:8px;margin-bottom:7px}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.cta{text-align:center;padding:120px 20px;border-top:1px solid rgba(255,255,255,.06)}
-.cta h2{font-family:Orbitron,sans-serif;font-size:clamp(30px,6vw,65px);margin-bottom:18px;text-shadow:0 0 20px rgba(255,255,255,.07)}
-.cta p{color:#666;margin-bottom:30px}
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
 
-@media(max-width:850px){
-.cards{grid-template-columns:1fr}.channel-grid{grid-template-columns:repeat(2,1fr)}
-.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}
-}
-@media(max-width:550px){
-nav{padding:0 20px}.nav-link{display:none}.hero h1{letter-spacing:8px}.hero p{font-size:9px;letter-spacing:2px}.gate{height:135px;flex-direction:column}.btn{width:210px}.gate.confirm{height:65px}.gate.confirm .join-btn{width:92vw}.question.show{height:48px}.channel-grid{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr}.footer-brand{grid-column:auto}.footer-bottom{flex-direction:column;gap:10px}
-}
-</style>
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        circle at 50% 20%,
+        rgba(255,255,255,.035),
+        transparent 38%
+      );
+      z-index: 100;
+    }
+
+    /* BARRE DU HAUT */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1000;
+    }
+
+    .logo {
+      color: #fff;
+      text-decoration: none;
+      font-family: Orbitron, sans-serif;
+      letter-spacing: 5px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      text-shadow: 0 0 12px rgba(255,255,255,.18);
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 18px rgba(255,255,255,.35);
+    }
+
+    .nav-link {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      transition: .25s;
+    }
+
+    .nav-link:hover {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255,255,255,.25);
+    }
+
+    /* ACCUEIL */
+    .welcome {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+      padding: 105px 0 70px;
+    }
+
+    .hero-image {
+      position: relative;
+      width: 100%;
+      max-height: 470px;
+      overflow: hidden;
+      margin: 0 0 34px;
+      border-radius: 2px;
+      background: #000;
+    }
+
+    .hero-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 470px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Fondu propre du bas de l'image vers le noir */
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 32%;
+      background: linear-gradient(
+        to bottom,
+        rgba(2,2,2,0),
+        rgba(2,2,2,.35) 45%,
+        #020202 100%
+      );
+      pointer-events: none;
+    }
+
+    .label {
+      font-family: Orbitron, sans-serif;
+      color: #666;
+      letter-spacing: 4px;
+      font-size: 10px;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      max-width: 700px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 14px;
+    }
+
+    /* CARTES */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 45px;
+    }
+
+    .card {
+      padding: 30px;
+      min-height: 185px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.012)
+      );
+      border-radius: 8px;
+      transition: .35s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    }
+
+    .num {
+      font-family: Orbitron, sans-serif;
+      color: #555;
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    .card h3 {
+      font-family: Orbitron, sans-serif;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #777;
+      font-size: 12px;
+      line-height: 1.75;
+    }
+
+    /* ESPACES */
+    .channels {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+      padding: 70px 0 90px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 35px;
+    }
+
+    .channel {
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.02);
+      color: #aaa;
+      font-size: 12px;
+      transition: .25s;
+    }
+
+    .channel:hover {
+      color: #fff;
+      background: rgba(255,255,255,.055);
+      transform: translateY(-3px);
+    }
+
+    .channel span {
+      display: block;
+      color: #444;
+      font-family: Orbitron, sans-serif;
+      font-size: 8px;
+      margin-bottom: 7px;
+    }
+
+    /* SECTION FINALE — SANS BOUTON */
+    .cta {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+      padding: 80px 20px 120px;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .cta h2 {
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(30px, 6vw, 65px);
+      line-height: 1.05;
+      margin-bottom: 18px;
+      text-shadow: 0 0 20px rgba(255,255,255,.07);
+    }
+
+    .cta p {
+      color: #666;
+    }
+
+    /* BOUTONS DISCORD / FERMER */
+    .cta-actions {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 14px;
+      width: min(455px, 100%);
+      margin: 32px auto 0;
+      min-height: 58px;
+    }
+
+    .cta-button {
+      position: relative;
+      height: 58px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,.18);
+      font-family: Orbitron, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition:
+        width .55s cubic-bezier(.22,1,.36,1),
+        opacity .35s ease,
+        transform .35s ease,
+        border-color .35s ease,
+        background .35s ease;
+    }
+
+    .close-button {
+      width: 220px;
+      color: #fff;
+      background: transparent;
+    }
+
+    .join-button {
+      width: 220px;
+      color: #050505;
+      background: #fff;
+      box-shadow: 0 0 25px rgba(255,255,255,.10);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .join-button:hover {
+      box-shadow: 0 0 32px rgba(255,255,255,.18);
+    }
+
+    .join-button span {
+      display: inline-block;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .cta-question {
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .cta-question.confirm-mode {
+      font-size: clamp(28px, 5vw, 58px);
+    }
+
+    .cta-question.confirm-mode br {
+      display: none;
+    }
+
+    .cta.confirm-mode #ctaText {
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .cta.confirm-mode .close-button {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      border-width: 0;
+      opacity: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cta.confirm-mode .join-button {
+      width: 100%;
+    }
+
+    .cta.confirm-mode #ctaActions {
+      width: min(455px, 100%);
+    }
+
+    .cta-button:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
+    }
+
+
+    /* SIGNATURE ARCHIVE X */
+    .archive-signature {
+      width: 100%;
+      margin: 70px 0 24px;
+      text-align: center;
+      font-family: Orbitron, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.62);
+      user-select: none;
+    }
+
+    .archive-signature::before {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 1px;
+      margin: 0 auto 18px;
+      background: rgba(255,255,255,.16);
+    }
+
+    .archive-signature strong {
+      color: rgba(255,255,255,.92);
+      font-weight: 600;
+    }
+
+
+    .signature-link {
+      color: inherit;
+      text-decoration: none;
+      transition: color .25s ease, text-shadow .25s ease;
+    }
+
+    .signature-link:hover {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,.28);
+    }
+
+    .signature-separator {
+      color: rgba(255,255,255,.28);
+      margin: 0 7px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 850px) {
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .channel-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-image {
+        max-height: 380px;
+      }
+
+      .hero-image img {
+        max-height: 380px;
+      }
+    }
+
+    @media (max-width: 550px) {
+      nav {
+        padding: 0 20px;
+      }
+
+      .nav-link {
+        display: none;
+      }
+
+      .welcome {
+        width: 92%;
+        padding-top: 92px;
+      }
+
+      .hero-image {
+        max-height: 260px;
+        margin-bottom: 26px;
+      }
+
+      .hero-image img {
+        min-height: 220px;
+        max-height: 260px;
+        object-fit: cover;
+      }
+
+      .title {
+        font-size: clamp(28px, 9vw, 42px);
+      }
+
+      .intro {
+        font-size: 13px;
+      }
+
+      .cards,
+      .channel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .channels,
+      .cta {
+        width: 92%;
+      }
+
+      .cta {
+        padding-bottom: 80px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="logo">ARCHIVE X</div>
-  <a class="nav-link" href="#serveur">DÉCOUVRIR LE SERVEUR</a>
-</nav>
+  <!-- Le clic sur ARCHIVE X recharge la page -->
+  <nav>
+    <a
+      class="logo"
+      href="./"
+      onclick="window.location.reload(); return false;"
+      aria-label="Recharger la page ARCHIVE X"
+    >
+      ARCHIVE X
+    </a>
 
-  
+    <a class="nav-link" href="#serveur">
+      DÉCOUVRIR LE SERVEUR
+    </a>
+  </nav>
 
-<section class="section top-welcome" id="serveur">
-    <div class="label">// ARCHIVE X</div>
-    <h2 class="title">BIENVENUE<br>DANS L'ARCHIVE X</h2>
-    <p class="intro">
-      Pour trouver n'importe quel dossier de n'importe qui.
-    </p>
+  <main id="serveur">
 
-    <div class="cards">
-      <article class="card"><div class="num">01 / COMMUNITY</div><h3>COMMUNAUTÉ</h3><p>Un espace pour discuter, rencontrer les membres et participer à la vie d'ARCHIVE X.</p></article>
-      <article class="card"><div class="num">02 / ROOMS</div><h3>SALONS</h3><p>Une organisation claire des salons textuels et vocaux pour naviguer facilement.</p></article>
-      <article class="card"><div class="num">03 / SYSTEM</div><h3>SYSTÈME</h3><p>Vérification, règles, tickets, bots, statistiques et outils communautaires.</p></article>
-    </div>
-  </section>
+    <!-- IMAGE AU-DESSUS DU TITRE -->
+    <section class="welcome">
 
-<section class="hero" id="accueil">
-  <div class="hero-content">
+      <div class="hero-image">
+        <img
+          src="hero-archive-x.png"
+          alt="ARCHIVE X"
+          onerror="this.onerror=null; this.src='héro-archive-x.png';"
+        >
+      </div>
 
-    <div id="question" class="question">Tu veux rejoindre le serveur ?</div>
+      <div class="label">// ARCHIVE X</div>
 
-    <div id="gate" class="gate">
-      <button class="btn close-btn" id="closeBtn">FERMER</button>
-      <button class="btn join-btn" id="joinBtn"><span id="joinText">JOIN SERVER</span></button>
-    </div>
-  </div>
+      <h1 class="title">
+        BIENVENUE<br>
+        DANS L'ARCHIVE X
+      </h1>
 
-  <div class="scroll">SCROLL ↓</div>
-</section>
+      <p class="intro">
+        Pour trouver n'importe quel dossier de n'importe qui.
+      </p>
 
-<main>
+      <div class="cards">
+        <article class="card">
+          <div class="num">01 / COMMUNITY</div>
+          <h2>COMMUNAUTÉ</h2>
+          <p>
+            Un espace pour discuter, rencontrer les membres
+            et participer à la vie d'ARCHIVE X.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="num">02 / ROOMS</div>
+          <h2>SALONS</h2>
+          <p>
+            Une organisation claire des salons textuels
+            et vocaux pour naviguer facilement.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="num">03 / SYSTEM</div>
+          <h2>SYSTÈME</h2>
+          <p>
+            Vérification, règles, tickets, bots, statistiques
+            et outils communautaires.
+          </p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- UNIQUEMENT LES 4 CATÉGORIES DEMANDÉES -->
+    <section class="channels">
+      <div class="label">// DIRECTORY</div>
+
+      <h2 class="title">LES ESPACES</h2>
+
+      <div class="channel-grid">
+        <div class="channel">
+          <span>01</span>
+          # ticket
+        </div>
+
+        <div class="channel">
+          <span>02</span>
+          # salons-vocaux
+        </div>
+
+        <div class="channel">
+          <span>03</span>
+          # arriver-depart
+        </div>
+
+        <div class="channel">
+          <span>04</span>
+          # boutique
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION FINALE -->
+    <section class="cta" id="cta">
+
+      <h2 id="ctaQuestion" class="cta-question" aria-live="polite">
+        PRÊT À ENTRER<br>
+        DANS L'ARCHIVE ?
+      </h2>
+
+      <p id="ctaText">
+        Rejoins la communauté ARCHIVE X sur Discord.
+      </p>
+
+      <div class="cta-actions" id="ctaActions">
+        <button type="button" class="cta-button close-button" id="closeButton">
+          FERMER
+        </button>
+
+        <button type="button" class="cta-button join-button" id="joinButton">
+          <span id="joinLabel">JOIN SERVER</span>
+        </button>
+      </div>
+
+    </section>
 
 
-  <section class="section channels">
-    <div class="label">// DIRECTORY</div>
-    <h2 class="title">LES ESPACES</h2>
+      <div class="archive-signature" aria-label="Signature ARCHIVE X">
+        <a class="signature-link archive-link" href="./" onclick="window.location.reload(); return false;">ARCHIVE X OFFICIEL</a>
+        <span class="signature-separator">|</span>
+        <a class="signature-link google-link" href="https://www.google.com/">GOOGLE</a>
+      </div>
 
-    <div class="channel-grid">
-      <div class="channel"><span>01</span># ticket</div>
-      <div class="channel"><span>02</span># salons-vocaux</div>
-      <div class="channel"><span>03</span># arriver-depart</div>
-      <div class="channel"><span>04</span># boutique</div>
-    </div>
-  </section>
-
-  <section class="cta">
-    <h2>PRÊT À ENTRER<br>DANS L'ARCHIVE ?</h2>
-    <p>Rejoins la communauté ARCHIVE X sur Discord.</p>
-    <button class="btn join-btn" onclick="window.open('https://discord.gg/vzaT6qgnzB','_blank')">REJOINDRE</button>
-  </section>
-</main>
+  </main>
 
 
+  <script>
+    (() => {
+      const cta = document.getElementById("cta");
+      const closeButton = document.getElementById("closeButton");
+      const joinButton = document.getElementById("joinButton");
+      const joinLabel = document.getElementById("joinLabel");
+      const ctaQuestion = document.getElementById("ctaQuestion");
 
-<script>
-const gate = document.getElementById("gate");
-const joinBtn = document.getElementById("joinBtn");
-const joinText = document.getElementById("joinText");
-const question = document.getElementById("question");
-const closeBtn = document.getElementById("closeBtn");
+      let confirmationMode = false;
 
-let confirmMode = false;
+      // FERMER :
+      // Le navigateur n'autorise pas toujours window.close() sur un onglet
+      // ouvert directement par l'utilisateur. On tente donc la fermeture.
+      closeButton.addEventListener("click", () => {
+        if (confirmationMode) return;
 
-joinBtn.addEventListener("click", () => {
-  if (confirmMode) {
-    window.location.href = "https://discord.gg/vzaT6qgnzB";
-    return;
-  }
+        confirmationMode = true;
+        cta.classList.add("confirm-mode");
 
-  confirmMode = true;
-  gate.classList.add("confirm");
+        ctaQuestion.innerHTML = "TU VEUX REJOINDRE LE SERVEUR ?";
+        ctaQuestion.classList.add("confirm-mode");
 
-  setTimeout(() => question.classList.add("show"), 220);
+        // Fondu du texte JOIN SERVER vers OUI.
+        joinLabel.style.opacity = "0";
+        joinLabel.style.transform = "translateY(5px)";
 
-  joinText.classList.remove("fade");
-  void joinText.offsetWidth;
-  joinText.classList.add("fade");
+        setTimeout(() => {
+          joinLabel.textContent = "OUI";
+          joinLabel.style.transform = "translateY(-5px)";
 
-  setTimeout(() => {
-    joinText.textContent = "OUI";
-  }, 280);
-});
+          requestAnimationFrame(() => {
+            joinLabel.style.opacity = "1";
+            joinLabel.style.transform = "translateY(0)";
+          });
+        }, 250);
+      });
 
-closeBtn.addEventListener("click", () => {
-  window.close();
+      // JOIN SERVER / OUI :
+      // En mode normal, le bouton affiche la confirmation.
+      // Après la confirmation, il ouvre directement le serveur Discord.
+      joinButton.addEventListener("click", () => {
+        if (!confirmationMode) {
+          confirmationMode = true;
+          cta.classList.add("confirm-mode");
 
-  setTimeout(() => {
-    window.open("", "_self");
-    window.close();
-  }, 120);
-});
-</script>
+          ctaQuestion.innerHTML = "TU VEUX REJOINDRE LE SERVEUR ?";
+          ctaQuestion.classList.add("confirm-mode");
+
+          joinLabel.style.opacity = "0";
+          joinLabel.style.transform = "translateY(5px)";
+
+          setTimeout(() => {
+            joinLabel.textContent = "OUI";
+            joinLabel.style.transform = "translateY(-5px)";
+
+            requestAnimationFrame(() => {
+              joinLabel.style.opacity = "1";
+              joinLabel.style.transform = "translateY(0)";
+            });
+          }, 250);
+
+          return;
+        }
+
+        window.location.href = "https://discord.gg/vzaT6qgnzB";
+      });
+    })();
+  </script>
+
 </body>
 </html>
