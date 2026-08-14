@@ -257,6 +257,17 @@
             margin: 0 7px;
         }
 
+        /* === AJOUT reCAPTCHA === */
+        #recaptcha-container {
+            display: none;
+            margin-top: 25px;
+            justify-content: center;
+        }
+
+        #recaptcha-container.visible {
+            display: flex;
+        }
+
         @media (max-width: 800px) {
             .topbar { padding: 0 20px; }
             .archive-banner { height: 400px; }
@@ -289,6 +300,9 @@
             }
         }
     </style>
+
+    <!-- Script reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -341,6 +355,15 @@
             <button id="closeButton" class="button close-button" onclick="closePage()">FERMER</button>
             <button id="joinButton" class="button join-button" onclick="joinServer()">JOIN SERVER</button>
         </div>
+
+        <!-- Conteneur reCAPTCHA (caché au début) -->
+        <div id="recaptcha-container">
+            <div class="g-recaptcha" 
+                 data-sitekey="6LfmHIUtAAAAAAJh0fEMN8i0sD31h7giySx4PTZ7"
+                 data-callback="onRecaptchaSuccess"
+                 data-theme="dark">
+            </div>
+        </div>
     </section>
 </main>
 
@@ -381,8 +404,10 @@
         const buttons = document.getElementById('buttons');
         const question = document.getElementById('joinQuestion');
         const joinButton = document.getElementById('joinButton');
+        const recaptchaContainer = document.getElementById('recaptcha-container');
 
         if (!confirmationActive) {
+            // Première étape : demander confirmation
             confirmationActive = true;
             buttons.classList.add('confirm-mode');
             question.classList.add('visible');
@@ -395,6 +420,14 @@
             return;
         }
 
+        // Deuxième étape : afficher le reCAPTCHA au lieu de rediriger directement
+        joinButton.style.display = 'none';
+        recaptchaContainer.classList.add('visible');
+    }
+
+    // Appelé automatiquement quand le reCAPTCHA est validé
+    function onRecaptchaSuccess(token) {
+        // Redirection uniquement après validation du captcha
         window.location.href = 'https://discord.gg/vzaT6qgnzB';
     }
 </script>
