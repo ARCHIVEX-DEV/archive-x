@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARCHIVE X</title>
+    <link rel="icon" type="image/gif" href="favicon.gif">
+    <link rel="shortcut icon" type="image/gif" href="favicon.gif">
     <style>
         * { box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -257,7 +259,7 @@
             margin: 0 7px;
         }
 
-        /* === AJOUT reCAPTCHA === */
+        /* reCAPTCHA */
         #recaptcha-container {
             display: none;
             margin-top: 25px;
@@ -266,6 +268,18 @@
 
         #recaptcha-container.visible {
             display: flex;
+        }
+
+        .loading-text {
+            display: none;
+            margin-top: 20px;
+            color: #888;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .loading-text.visible {
+            display: block;
         }
 
         @media (max-width: 800px) {
@@ -301,7 +315,6 @@
         }
     </style>
 
-    <!-- Script reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -356,7 +369,6 @@
             <button id="joinButton" class="button join-button" onclick="joinServer()">JOIN SERVER</button>
         </div>
 
-        <!-- Conteneur reCAPTCHA (caché au début) -->
         <div id="recaptcha-container">
             <div class="g-recaptcha" 
                  data-sitekey="6LfmHIUtAAAAAAJh0fEMN8i0sD31h7giySx4PTZ7"
@@ -364,6 +376,8 @@
                  data-theme="dark">
             </div>
         </div>
+
+        <div id="loadingText" class="loading-text">Vérification en cours...</div>
     </section>
 </main>
 
@@ -374,7 +388,6 @@
 </footer>
 
 <script>
-    // Toujours revenir tout en haut après un rafraîchissement
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
@@ -392,7 +405,6 @@
     function closePage() {
         window.open('', '_self');
         window.close();
-
         setTimeout(function () {
             location.replace('about:blank');
         }, 150);
@@ -407,7 +419,6 @@
         const recaptchaContainer = document.getElementById('recaptcha-container');
 
         if (!confirmationActive) {
-            // Première étape : demander confirmation
             confirmationActive = true;
             buttons.classList.add('confirm-mode');
             question.classList.add('visible');
@@ -416,19 +427,50 @@
             void joinButton.offsetWidth;
             joinButton.classList.add('fade-text');
             joinButton.textContent = 'OUI';
-
             return;
         }
 
-        // Deuxième étape : afficher le reCAPTCHA au lieu de rediriger directement
+        // Afficher le reCAPTCHA
         joinButton.style.display = 'none';
         recaptchaContainer.classList.add('visible');
     }
 
-    // Appelé automatiquement quand le reCAPTCHA est validé
-    function onRecaptchaSuccess(token) {
-        // Redirection uniquement après validation du captcha
-        window.location.href = 'https://discord.gg/vzaT6qgnzB';
+    // Appelé quand l'utilisateur valide le reCAPTCHA
+    async function onRecaptchaSuccess(token) {
+        const loadingText = document.getElementById('loadingText');
+        const recaptchaContainer = document.getElementById('recaptcha-container');
+
+        // Cache le captcha et affiche "Vérification..."
+        recaptchaContainer.style.display = 'none';
+        loadingText.classList.add('visible');
+
+        try {
+            const response = await fetch('/api/verify-recaptcha', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: token })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Vérification réussie → redirection
+                window.location.href = 'https://discord.gg/vzaT6qgnzB';
+            } else {
+                // Échec
+                loadingText.textContent = 'Échec de la vérification. Réessaie.';
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        } catch (error) {
+            loadingText.textContent = 'Erreur de connexion. Réessaie.';
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        }
     }
 </script>
 
