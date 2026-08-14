@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -56,16 +57,6 @@ main{background:#020202;position:relative}
 .cta h2{font-family:Orbitron,sans-serif;font-size:clamp(30px,6vw,65px);margin-bottom:18px;text-shadow:0 0 20px rgba(255,255,255,.07)}
 .cta p{color:#666;margin-bottom:30px}
 
-footer{position:relative;min-height:370px;background:#050505 url("footer-archive-x.png") center/cover no-repeat;background-blend-mode:screen}
-footer:before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,#020202 0%,rgba(2,2,2,.35) 28%,rgba(0,0,0,.65) 100%)}
-.footer-content{position:relative;z-index:2;width:min(1200px,90%);margin:auto;padding:62px 0 20px}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:30px}
-.footer-brand h3{font-family:Georgia,serif;font-size:25px;letter-spacing:7px;font-weight:500;margin-bottom:15px}
-.footer-brand p{max-width:280px;color:#aaa;font-size:12px;line-height:1.8}
-.footer-col h4{font-family:Orbitron,sans-serif;font-size:10px;letter-spacing:3px;margin-bottom:18px}
-.footer-col a{display:block;color:#aaa;text-decoration:none;font-size:11px;margin:10px 0;transition:.2s}.footer-col a:hover{color:#fff;text-shadow:0 0 10px rgba(255,255,255,.2)}
-.footer-bottom{margin-top:45px;padding-top:18px;border-top:1px solid rgba(255,255,255,.13);display:flex;justify-content:space-between;color:#777;font-size:10px;letter-spacing:1px}
-
 @media(max-width:850px){
 .cards{grid-template-columns:1fr}.channel-grid{grid-template-columns:repeat(2,1fr)}
 .footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}
@@ -84,9 +75,6 @@ nav{padding:0 20px}.nav-link{display:none}.hero h1{letter-spacing:8px}.hero p{fo
 
 <section class="hero" id="accueil">
   <div class="hero-content">
-    <div class="hero-kicker">DISCORD COMMUNITY</div>
-    <h1>ARCHIVE X</h1>
-    <p>Un espace. Une communauté. Une archive.</p>
 
     <div id="question" class="question">Tu veux rejoindre le serveur ?</div>
 
@@ -121,18 +109,10 @@ nav{padding:0 20px}.nav-link{display:none}.hero h1{letter-spacing:8px}.hero p{fo
     <h2 class="title">LES ESPACES</h2>
 
     <div class="channel-grid">
-      <div class="channel"><span>01</span># vérification</div>
-      <div class="channel"><span>02</span># rules</div>
-      <div class="channel"><span>03</span># moderator-only</div>
-      <div class="channel"><span>04</span># arriver-depart</div>
-      <div class="channel"><span>05</span># boutique</div>
-      <div class="channel"><span>06</span># pas-de-perm</div>
-      <div class="channel"><span>07</span># salons-vocaux</div>
-      <div class="channel"><span>08</span># ticket</div>
-      <div class="channel"><span>09</span># salons-textuels</div>
-      <div class="channel"><span>10</span># malware</div>
-      <div class="channel"><span>11</span># bot</div>
-      <div class="channel"><span>12</span># webhook</div>
+      <div class="channel"><span>01</span># ticket</div>
+      <div class="channel"><span>02</span># salons-vocaux</div>
+      <div class="channel"><span>03</span># arriver-depart</div>
+      <div class="channel"><span>04</span># boutique</div>
     </div>
   </section>
 
@@ -143,21 +123,7 @@ nav{padding:0 20px}.nav-link{display:none}.hero h1{letter-spacing:8px}.hero p{fo
   </section>
 </main>
 
-<footer id="contact">
-  <div class="footer-content">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <h3>ARCHIVE X</h3>
-        <p>Archive X est une plateforme dédiée à la préservation, à l'exploration et au partage du savoir.</p>
-      </div>
-      <div class="footer-col"><h4>NAVIGATION</h4><a href="#accueil">Accueil</a><a href="#serveur">À propos</a><a href="#serveur">Services</a><a href="#contact">Contact</a></div>
-      <div class="footer-col"><h4>RESSOURCES</h4><a href="#serveur">Documentation</a><a href="#serveur">Tutoriels</a><a href="#serveur">FAQ</a><a href="#serveur">Support</a></div>
-      <div class="footer-col"><h4>LÉGAL</h4><a href="#">Mentions légales</a><a href="#">Confidentialité</a><a href="#">Conditions</a><a href="#">Cookies</a></div>
-      <div class="footer-col"><h4>CONTACT</h4><a href="https://discord.gg/vzaT6qgnzB" target="_blank">Discord</a><a href="mailto:contact@archive-x.com">contact@archive-x.com</a><a href="#accueil">www.archive-x.com</a></div>
-    </div>
-    <div class="footer-bottom"><span>© 2026 ARCHIVE X</span><span>TOUS DROITS RÉSERVÉS.</span></div>
-  </div>
-</footer>
+
 
 <script>
 const gate = document.getElementById("gate");
