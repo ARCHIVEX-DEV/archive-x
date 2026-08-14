@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>ARCHIVE X</title>
     <link rel="icon" type="image/gif" href="favicon.gif">
     <link rel="shortcut icon" type="image/gif" href="favicon.gif">
@@ -196,7 +196,7 @@
         .button {
             height: 58px;
             width: 220px;
-            border-radius: 6px;
+            border-radius: 18px;
             border: 1px solid rgba(255,255,255,0.25);
             background: #000;
             color: #fff;
@@ -204,7 +204,95 @@
             font-weight: 700;
             letter-spacing: 4px;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
             transition: width 0.6s ease, opacity 0.4s ease, transform 0.4s ease, background 0.3s ease;
+        }
+
+        /* Petite lueur douce sur TOUS les boutons, en plus des animations existantes. */
+        .button {
+            animation-name: buttonGlow;
+            animation-duration: 2.6s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes buttonGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 3px rgba(255,255,255,0.16),
+                    0 0 8px rgba(255,255,255,0.07);
+            }
+            50% {
+                box-shadow:
+                    0 0 7px rgba(255,255,255,0.38),
+                    0 0 16px rgba(255,255,255,0.16),
+                    0 0 26px rgba(255,255,255,0.07);
+            }
+        }
+
+        .button::before,
+        .button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 52%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* JOIN SERVER / OUI :
+           anneau lumineux qui apparaît sur le contour
+           puis se contracte vers le centre. */
+        .join-button::before {
+            left: 50%;
+            top: 50%;
+            width: 170%;
+            height: 300%;
+            transform: translate(-50%, -50%) scale(1);
+            border-radius: 50%;
+            background: transparent;
+            border: 2px solid rgba(0,0,0,0.16);
+            box-shadow:
+                0 0 0 0 rgba(0,0,0,0.10),
+                inset 0 0 18px rgba(0,0,0,0.05);
+            animation: joinCircleIn 1.65s cubic-bezier(0.4,0,0.2,1) infinite;
+        }
+
+        .join-button::after {
+            left: 50%;
+            top: 50%;
+            width: 150%;
+            height: 270%;
+            transform: translate(-50%, -50%) scale(1);
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(0,0,0,0.10);
+            animation: joinCircleIn 1.65s 0.08s cubic-bezier(0.4,0,0.2,1) infinite;
+        }
+
+        @keyframes joinCircleIn {
+            0% {
+                transform: translate(-50%, -50%) scale(1.05);
+                opacity: 0;
+            }
+            12% {
+                opacity: 1;
+            }
+            72% {
+                transform: translate(-50%, -50%) scale(0.42);
+                opacity: 0.8;
+            }
+            88% {
+                transform: translate(-50%, -50%) scale(0.02);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.02);
+                opacity: 0;
+            }
         }
 
         .button:hover { background: #111; }
@@ -213,9 +301,48 @@
             background: #fff;
             color: #000;
             border-color: #fff;
+            animation:
+                buttonGlow 2.6s ease-in-out infinite,
+                joinBreath 3.2s ease-in-out infinite;
         }
 
-        .join-button:hover { background: #ddd; }
+        .join-button:hover { background: #f3f3f3; }
+
+        @keyframes joinBreath {
+            0%, 18%, 75%, 100% {
+                box-shadow: 0 0 0 rgba(255,255,255,0);
+            }
+            50% {
+                box-shadow: 0 0 18px rgba(255,255,255,0.16);
+            }
+        }
+
+        /* FERMER :
+           effet "scanner" discret qui parcourt la bordure,
+           sans modifier son comportement au clic. */
+        .close-button {
+            background:
+                linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent) 0 100% / 45% 1px no-repeat,
+                #000;
+            animation:
+                buttonGlow 2.6s ease-in-out infinite,
+                closeScan 3.8s ease-in-out infinite;
+        }
+
+        @keyframes closeScan {
+            0%, 12% {
+                background-position: -45% 100%;
+                box-shadow: 0 0 0 rgba(255,255,255,0);
+            }
+            42% {
+                background-position: 100% 100%;
+                box-shadow: 0 0 10px rgba(255,255,255,0.06);
+            }
+            58%, 100% {
+                background-position: 145% 100%;
+                box-shadow: 0 0 0 rgba(255,255,255,0);
+            }
+        }
 
         .buttons.confirm-mode .close-button { display: none; }
 
@@ -311,6 +438,72 @@
             .buttons.confirm-mode { width: 100%; }
             .buttons.confirm-mode .join-button {
                 width: min(380px, 90vw);
+            }
+        }
+
+        /* Compatibilité écrans et appareils : téléphone, tablette, PC et petits écrans. */
+        @media (max-width: 800px) {
+            .button {
+                min-height: 52px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .button {
+                min-height: 54px;
+                border-radius: 16px;
+                letter-spacing: 3px;
+            }
+        }
+
+        /* Très petits écrans : éviter que le contenu dépasse horizontalement. */
+        @media (max-width: 320px) {
+            .button {
+                width: min(280px, 92vw);
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            .buttons.confirm-mode .join-button {
+                width: min(280px, 92vw);
+            }
+        }
+
+        /* Accessibilité : les personnes qui demandent moins d'animations
+           gardent les boutons fonctionnels sans mouvements permanents. */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .button,
+            .join-button,
+            .close-button,
+            .join-button::before,
+            .join-button::after {
+                animation: none !important;
+            }
+
+            .button {
+                box-shadow: 0 0 6px rgba(255,255,255,0.18);
+            }
+        }
+
+        /* Les appareils sans hover (tactile/montres) n'ont pas besoin d'un effet
+           dépendant du survol : les animations automatiques restent visibles. */
+        @media (hover: none) {
+            .button:hover {
+                background: inherit;
+            }
+
+            .join-button:hover {
+                background: #fff;
+            }
+
+            .close-button:hover {
+                background:
+                    linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent) 0 100% / 45% 1px no-repeat,
+                    #000;
             }
         }
     </style>
